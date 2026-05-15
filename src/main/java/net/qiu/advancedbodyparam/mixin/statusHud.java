@@ -9,11 +9,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static net.qiu.advancedbodyparam.QsAdvancedBodyParameters.MOD_ID;
+
 @Mixin(InventoryScreen.class)
 public class statusHud {
 
     @Unique
-    private static final Identifier VANILLA_BACKGROUND = Identifier.of("minecraft", "textures/gui/container.inventory.png");
+    private static final Identifier BACKGROUND = new Identifier(MOD_ID, "textures/gui/status_hud_background.png");
 
     @Inject(method = "drawBackground", at = @At("TAIL"))
     private void drawExtraPanel(DrawContext context, float delta, int mouseX, int mouseY, CallbackInfo ci) {
@@ -28,12 +30,12 @@ public class statusHud {
         int extraPanelY = y;
 
         // Width and height of the box we want to draw
-        int panelWidth = 53;
-        int panelHeight = 74;
+        int panelWidth = 66;
+        int panelHeight = 87;
 
-        context.drawTexture(VANILLA_BACKGROUND,
+        context.drawTexture(BACKGROUND,
                 extraPanelX, extraPanelY,
-                25,7,
+                0,0,
                 panelWidth, panelHeight);
     }
 }
