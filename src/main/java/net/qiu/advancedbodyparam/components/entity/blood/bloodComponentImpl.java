@@ -5,8 +5,10 @@ import net.minecraft.nbt.NbtCompound;
 public class bloodComponentImpl implements bloodComponent {
 
     private int blood = 20;
-
     private static final String bloodKey = "q_blood_level";
+
+    private int maxBlood = 60;
+
 
     @Override
     public void setBlood(int blood) {
