@@ -20,6 +20,14 @@
 		],
 		"fabric-datagen": [
 			"net.qiu.advancedbodyparam.QsAdvancedBodyParametersDataGenerator"
+		],
+		"cardinal-components": [
+			"net.qiu.advancedbodyparam.components.entity.entityComponentReg"
+		]
+	},
+	"custom": {
+		"cardinal-components": [
+			"qadvancedbodyparam:blood"
 		]
 	},
 	"mixins": [
