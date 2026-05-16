@@ -29,13 +29,14 @@ public class statusHud {
         int extraPanelX = x + 176;
         int extraPanelY = y;
 
-        // Width and height of the box we want to draw
-        int panelWidth = 66;
-        int panelHeight = 87;
-
         context.drawTexture(BACKGROUND,
                 extraPanelX, extraPanelY,
                 0,0,
-                panelWidth, panelHeight);
+                65, 87);
+
+        context.drawTexture(BACKGROUND,
+                extraPanelX + 7, extraPanelY + 7,
+                65, 0,
+                51, 72);
     }
 }
