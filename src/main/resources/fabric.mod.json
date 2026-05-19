@@ -22,7 +22,7 @@
 			"net.qiu.advancedbodyparam.QsAdvancedBodyParametersDataGenerator"
 		],
 		"cardinal-components": [
-			"net.qiu.advancedbodyparam.components.entity.entityComponentReg"
+          "net.qiu.advancedbodyparam.components.entity.EntityComponentReg"
 		]
 	},
 	"custom": {

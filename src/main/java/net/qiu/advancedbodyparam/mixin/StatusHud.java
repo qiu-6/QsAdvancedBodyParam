@@ -7,7 +7,7 @@ import net.minecraft.client.gui.screen.recipebook.RecipeBookWidget;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.qiu.advancedbodyparam.gui.statusPanel.bodyPanel;
+import net.qiu.advancedbodyparam.gui.statusPanel.BodyPanel;
 import net.qiu.advancedbodyparam.util.BodyParts;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import static net.qiu.advancedbodyparam.QsAdvancedBodyParameters.MOD_ID;
 
 @Mixin(InventoryScreen.class)
-public class statusHud extends Screen {
+public class StatusHud extends Screen {
 
     @Final
     @Shadow
@@ -58,7 +58,7 @@ public class statusHud extends Screen {
         return (this.height - INVENTORY_HEIGHT) / 2;
     }
 
-    protected statusHud(Text title) {
+    protected StatusHud(Text title) {
         super(title);
     }
 
@@ -122,7 +122,7 @@ public class statusHud extends Screen {
 
         String modelType = networkEntry.getModel();
 
-        bodyPanel head = new bodyPanel(
+        BodyPanel head = new BodyPanel(
                 x - PANEL_WIDTH + 19, y + 10,
                 2,
                 skin,
@@ -130,7 +130,7 @@ public class statusHud extends Screen {
                 modelType
         );
 
-        bodyPanel torso = new bodyPanel(
+        BodyPanel torso = new BodyPanel(
                 x - PANEL_WIDTH + 19, y + 27,
                 2,
                 skin,
@@ -138,7 +138,7 @@ public class statusHud extends Screen {
                 modelType
         );
 
-        bodyPanel leftArm = new bodyPanel(
+        BodyPanel leftArm = new BodyPanel(
                 x - PANEL_WIDTH + 36, y + 27,
                 2,
                 skin,
@@ -146,7 +146,7 @@ public class statusHud extends Screen {
                 modelType
         );
 
-        bodyPanel rightArm = new bodyPanel(
+        BodyPanel rightArm = new BodyPanel(
                 x - PANEL_WIDTH + 10, y + 27,
                 2,
                 skin,
@@ -154,7 +154,7 @@ public class statusHud extends Screen {
                 modelType
         );
 
-        bodyPanel leftLeg = new bodyPanel(
+        BodyPanel leftLeg = new BodyPanel(
                 x - PANEL_WIDTH + 28, y + 52,
                 2,
                 skin,
@@ -162,7 +162,7 @@ public class statusHud extends Screen {
                 modelType
         );
 
-        bodyPanel rightLeg = new bodyPanel(
+        BodyPanel rightLeg = new BodyPanel(
                 x - PANEL_WIDTH + 18, y + 52,
                 2,
                 skin,

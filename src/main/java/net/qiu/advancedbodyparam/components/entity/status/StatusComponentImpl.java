@@ -7,13 +7,13 @@ import net.qiu.advancedbodyparam.util.status.StatusHelper;
 
 import java.util.EnumMap;
 
-public class statusComponentImpl implements statusComponent {
+public class StatusComponentImpl implements StatusComponent {
 
     private EnumMap<Status, StatusHelper> statusMap;
 
     private final PlayerEntity player;
 
-    public statusComponentImpl(PlayerEntity player) {
+    public StatusComponentImpl(PlayerEntity player) {
         this.player = player;
     }
 

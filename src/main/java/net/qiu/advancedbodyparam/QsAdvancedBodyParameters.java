@@ -5,7 +5,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.qiu.advancedbodyparam.command.command;
-import net.qiu.advancedbodyparam.config.modConfig;
+import net.qiu.advancedbodyparam.config.ModConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +24,6 @@ public class QsAdvancedBodyParameters implements ModInitializer {
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> command.register(dispatcher));
 
-		MidnightConfig.init(MOD_ID, modConfig.class);
+		MidnightConfig.init(MOD_ID, ModConfig.class);
 	}
 }

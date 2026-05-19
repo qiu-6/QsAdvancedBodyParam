@@ -9,7 +9,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.qiu.advancedbodyparam.QsAdvancedBodyParameters;
-import net.qiu.advancedbodyparam.components.entity.entityComponentReg;
+import net.qiu.advancedbodyparam.components.entity.EntityComponentReg;
 
 import java.util.*;
 
@@ -67,11 +67,11 @@ public class command {
             return 0;
         }
 
-        return entityComponentReg.BLOOD_COMPONENT.maybeGet(serverPlayer).map(bloodComponent -> {
+        return EntityComponentReg.BLOOD_COMPONENT.maybeGet(serverPlayer).map(bloodComponent -> {
             source.sendFeedback(() -> Text.translatable("commands.qadvancedbodyparam.getblood", serverPlayer.getName().getString(), bloodComponent.getBlood()), false);
             return 1;
         }).orElseGet(() -> {
-            source.sendError(Text.translatable("commands.qadvancedbodyparam.componenterror", entityComponentReg.BLOOD_COMPONENT.getId().getNamespace(), serverPlayer.getName().getString()));
+            source.sendError(Text.translatable("commands.qadvancedbodyparam.componenterror", EntityComponentReg.BLOOD_COMPONENT.getId().getNamespace(), serverPlayer.getName().getString()));
             QsAdvancedBodyParameters.LOGGER.error("Could not find blood component on {}", serverPlayer.getName().getString());
             return 0;
         });
@@ -94,7 +94,7 @@ public class command {
                 return 0;
             }
 
-            return entityComponentReg.BLOOD_COMPONENT.maybeGet(serverPlayer).map(bloodComponent -> {
+            return EntityComponentReg.BLOOD_COMPONENT.maybeGet(serverPlayer).map(bloodComponent -> {
                 bloodComponent.setBlood(newBlood);
                 source.sendFeedback(() -> Text.translatable("commands.qadvancedbodyparam.setblood", serverPlayer.getName().getString(), bloodComponent.getBlood()), false);
 
@@ -105,7 +105,7 @@ public class command {
                 return 1;
             }).orElseGet(() -> {
                 source.sendError(Text.translatable("commands.qadvancedbodyparam.componenterror",
-                        entityComponentReg.BLOOD_COMPONENT.getId().getPath(),
+                        EntityComponentReg.BLOOD_COMPONENT.getId().getPath(),
                         serverPlayer.getName().getString()));
 
                 QsAdvancedBodyParameters.LOGGER.error("Could not find blood component on {}", serverPlayer.getName().getString());
@@ -118,7 +118,7 @@ public class command {
 
             for (ServerPlayerEntity player : players) {
 
-                entityComponentReg.BLOOD_COMPONENT.maybeGet(player).ifPresentOrElse(bloodComponent -> {
+                EntityComponentReg.BLOOD_COMPONENT.maybeGet(player).ifPresentOrElse(bloodComponent -> {
 
                     bloodComponent.setBlood(newBlood);
                     success.add(player.getName().getString());
@@ -141,7 +141,7 @@ public class command {
             if (!fail.isEmpty()) {
 
                 source.sendError(Text.translatable("commands.qadvancedbodyparam.componenterror",
-                        entityComponentReg.BLOOD_COMPONENT.getId().getPath(),
+                        EntityComponentReg.BLOOD_COMPONENT.getId().getPath(),
                         String.join(", ", fail)));
 
                 QsAdvancedBodyParameters.LOGGER.error("Could not find blood component on {}", String.join(", ", fail));

@@ -6,11 +6,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.qiu.advancedbodyparam.util.BodyParts;
 
-public class bodyPanel extends hoverableWidget{
+public class BodyPanel extends HoverableWidget {
 
     private final Text tooltip;
 
-    public bodyPanel(int x, int y, int multiplier, Identifier texture, BodyParts parts, String modelType) {
+    public BodyPanel(int x, int y, int multiplier, Identifier texture, BodyParts parts, String modelType) {
         super(
                 getX(x, parts, modelType), y,
                 getRegionalWidth(parts, modelType) * multiplier,

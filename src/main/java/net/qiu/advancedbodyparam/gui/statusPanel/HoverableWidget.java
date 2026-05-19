@@ -30,7 +30,7 @@ import net.minecraft.util.Identifier;
  * ));
  * }</pre>
  */
-public abstract class hoverableWidget extends ClickableWidget {
+public abstract class HoverableWidget extends ClickableWidget {
 
     protected Identifier texture;
 
@@ -41,15 +41,15 @@ public abstract class hoverableWidget extends ClickableWidget {
     protected int textureWidth;
     protected int textureHeight;
 
-    public hoverableWidget(int x, int y, int width, int height, Identifier texture) {
+    public HoverableWidget(int x, int y, int width, int height, Identifier texture) {
         this(x, y, width, height, texture, 0, 0, width, height, width, height);
     }
 
-    public hoverableWidget(int x, int y, int width, int height,
-                         Identifier texture,
-                         int u, int v,
-                         int regionWidth, int regionHeight,
-                         int textureWidth, int textureHeight) {
+    public HoverableWidget(int x, int y, int width, int height,
+                           Identifier texture,
+                           int u, int v,
+                           int regionWidth, int regionHeight,
+                           int textureWidth, int textureHeight) {
         super(x, y, width, height, Text.empty());
 
         this.texture       = texture;

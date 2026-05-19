@@ -6,9 +6,9 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import static net.qiu.advancedbodyparam.QsAdvancedBodyParameters.MOD_ID;
 import static net.qiu.advancedbodyparam.QsAdvancedBodyParameters.MOD_NAME;
 
-public class languageProvider extends FabricLanguageProvider {
+public class LanguageProvider extends FabricLanguageProvider {
 
-    public languageProvider(FabricDataOutput dataOutput) {
+    public LanguageProvider(FabricDataOutput dataOutput) {
         super(dataOutput);
     }
 

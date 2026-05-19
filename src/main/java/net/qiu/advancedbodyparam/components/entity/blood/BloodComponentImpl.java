@@ -2,7 +2,7 @@ package net.qiu.advancedbodyparam.components.entity.blood;
 
 import net.minecraft.nbt.NbtCompound;
 
-public class bloodComponentImpl implements bloodComponent {
+public class BloodComponentImpl implements BloodComponent {
 
     private int blood = 60;
     private static final String bloodKey = "q_blood_level";
