@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
 import static net.qiu.advancedbodyparam.QsAdvancedBodyParameters.MOD_ID;
+import static net.qiu.advancedbodyparam.QsAdvancedBodyParameters.MOD_NAME;
 
 public class languageProvider extends FabricLanguageProvider {
 
@@ -19,6 +20,10 @@ public class languageProvider extends FabricLanguageProvider {
         return "commands." + MOD_ID + "." + path;
     }
 
+    private static String configKey(String path) {
+        return MOD_ID + ".midnightconfig." + path;
+    }
+
     @Override
     public void generateTranslations(TranslationBuilder translationBuilder) {
 
@@ -31,5 +36,10 @@ public class languageProvider extends FabricLanguageProvider {
         translationBuilder.add(commandKey("setblood"), "Blood level of %1$s is set to %2$d");
         translationBuilder.add(commandKey("setmultipleblood"), "Blood level of %1$d players are set to %2$d");
         translationBuilder.add(commandKey("componenterror"), "Could not find %1$s component on %2$s");
+
+        // Config
+        translationBuilder.add(configKey("title"), MOD_NAME);
+
+        translationBuilder.add(configKey("fracturedComment"), "Bone fracture");
     }
 }
