@@ -1,4 +1,6 @@
 package net.qiu.advancedbodyparam.config;
 
-public class modConfig {
+import eu.midnightdust.lib.config.MidnightConfig;
+
+public class modConfig extends MidnightConfig {
 }
