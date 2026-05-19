@@ -1,9 +1,11 @@
 package net.qiu.advancedbodyparam;
 
+import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.qiu.advancedbodyparam.command.command;
+import net.qiu.advancedbodyparam.config.modConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,5 +23,7 @@ public class QsAdvancedBodyParameters implements ModInitializer {
 		LOGGER.info("Registering " + MOD_NAME);
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> command.register(dispatcher));
+
+		MidnightConfig.init(MOD_ID, modConfig.class);
 	}
 }
