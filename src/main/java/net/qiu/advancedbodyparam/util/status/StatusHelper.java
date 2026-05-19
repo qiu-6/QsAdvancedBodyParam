@@ -22,4 +22,24 @@ public class StatusHelper {
 
         return duration <= 0;
     }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setDuration(int newDuration) {
+        duration = Math.min(status.getMaxDuration(), newDuration);
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setIntensity(int newIntensity) {
+        intensity = Math.min(status.getMaxIntensity(), newIntensity);
+    }
+
+    public int getIntensity() {
+        return intensity;
+    }
 }
