@@ -2,17 +2,20 @@ package net.qiu.advancedbodyparam.util.status;
 
 public enum Status {
 
-    FRACTURE();
+    FRACTURE(2);
 
     private final int maxDuration;
     private final boolean isPersistent;
+    private final int maxIntensity;
 
-    Status(int maxDuration, boolean isPersistent) {
+    Status(int maxDuration, boolean isPersistent, int maxIntensity) {
         this.maxDuration = maxDuration;
         this.isPersistent = isPersistent;
+        this.maxIntensity = maxIntensity;
     }
 
-    Status() {
+    Status(int maxIntensity) {
+        this.maxIntensity = maxIntensity;
         this.maxDuration = 114514;
         this.isPersistent = true;
     }
@@ -23,5 +26,9 @@ public enum Status {
 
     public int getMaxDuration() {
         return maxDuration;
+    }
+
+    public int getMaxIntensity() {
+        return maxIntensity;
     }
 }
