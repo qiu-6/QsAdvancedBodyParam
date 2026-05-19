@@ -1,6 +1,6 @@
 package net.qiu.advancedbodyparam.util;
 
-public enum bodyParts {
+public enum BodyParts {
 
     HEAD(8, 8),
     TORSO(20, 20),
@@ -13,7 +13,7 @@ public enum bodyParts {
     private final int v;
 
 
-    bodyParts(int u, int v) {
+    BodyParts(int u, int v) {
         this.u = u;
         this.v = v;
     }
