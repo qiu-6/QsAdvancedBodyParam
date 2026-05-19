@@ -27,7 +27,8 @@
 	},
 	"custom": {
 		"cardinal-components": [
-			"qadvancedbodyparam:blood"
+			"qadvancedbodyparam:blood",
+			"qadvancedbodyparam:status"
 		]
 	},
 	"mixins": [
