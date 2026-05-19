@@ -7,6 +7,7 @@ import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
 import net.qiu.advancedbodyparam.datagen.damageTypeProvider;
+import net.qiu.advancedbodyparam.datagen.damageTypeTagProvider;
 import net.qiu.advancedbodyparam.datagen.languageProvider;
 import net.qiu.advancedbodyparam.util.tags.damageTypes;
 
@@ -19,8 +20,10 @@ public class QsAdvancedBodyParametersDataGenerator implements DataGeneratorEntry
 
 		QsAdvancedBodyParameters.LOGGER.info("Datagen for language provider");
 		pack.addProvider(languageProvider::new);
-		QsAdvancedBodyParameters.LOGGER.info("Datagen for damage types provider");
+		QsAdvancedBodyParameters.LOGGER.info("Datagen for damage type provider");
 		pack.addProvider(damageTypeProvider::new);
+		QsAdvancedBodyParameters.LOGGER.info("Datagen for damage type tag provider");
+		pack.addProvider(damageTypeTagProvider::new);
 	}
 
 	@Override
