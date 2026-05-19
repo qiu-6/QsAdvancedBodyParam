@@ -7,13 +7,22 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+
+	// CCA
 	maven {
 		name = "Ladysnake Mods"
 		url = 'https://maven.ladysnake.org/releases'
 	}
 
+	// midnightlib
 	maven{
 		url = "https://maven.midnightdust.eu/releases"
+	}
+
+	// mod menu
+	maven {
+		name = "Terraformers"
+		url = "https://maven.terraformersmc.com/"
 	}
 
 }
@@ -41,6 +50,8 @@ dependencies {
 	include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
 
 	modImplementation include ("eu.midnightdust:midnightlib:${project.midnightlib_version}")
+
+	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 	
 }
 
