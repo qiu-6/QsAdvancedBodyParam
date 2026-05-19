@@ -1,4 +1,4 @@
-package net.qiu.advancedbodyparam.util.enums;
+package net.qiu.advancedbodyparam.util;
 
 public enum bodyParts {
 
