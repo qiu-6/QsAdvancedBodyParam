@@ -12,7 +12,6 @@ public enum BodyParts {
     private final int u;
     private final int v;
 
-
     BodyParts(int u, int v) {
         this.u = u;
         this.v = v;
@@ -35,5 +34,9 @@ public enum BodyParts {
             case HEAD, TORSO -> 8;
             case LEFT_ARM, RIGHT_ARM, LEFT_LEG, RIGHT_LEG -> 4;
         };
+    }
+
+    public boolean getAmputable() {
+        return !(this.equals(HEAD) || this.equals(TORSO));
     }
 }
