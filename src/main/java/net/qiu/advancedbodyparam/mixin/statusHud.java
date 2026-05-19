@@ -1,6 +1,5 @@
 package net.qiu.advancedbodyparam.mixin;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
@@ -9,7 +8,7 @@ import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.qiu.advancedbodyparam.gui.statusPanel.bodyPanel;
-import net.qiu.advancedbodyparam.util.enums.bodyParts;
+import net.qiu.advancedbodyparam.util.bodyParts;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

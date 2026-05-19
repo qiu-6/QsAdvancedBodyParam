@@ -72,6 +72,13 @@ public abstract class hoverableWidget extends ClickableWidget {
         }
     }
 
+    @Override
+    public boolean isMouseOver(double mouseX, double mouseY) {
+        return this.visible
+                && mouseX >= getX() && mouseX < getX() + width
+                && mouseY >= getY() && mouseY < getY() + height;
+    }
+
     protected void drawBaseTexture(DrawContext context) {
         context.drawTexture(
                 texture,
@@ -107,9 +114,5 @@ public abstract class hoverableWidget extends ClickableWidget {
     @Override
     protected void appendClickableNarrations(NarrationMessageBuilder builder) {
         // intentionally empty
-    }
-
-    public void setTexture(Identifier texture) {
-        this.texture = texture;
     }
 }

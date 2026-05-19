@@ -1,11 +1,14 @@
 package net.qiu.advancedbodyparam.gui.statusPanel;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.qiu.advancedbodyparam.QsAdvancedBodyParameters;
-import net.qiu.advancedbodyparam.util.enums.bodyParts;
+import net.qiu.advancedbodyparam.util.bodyParts;
 
 public class bodyPanel extends hoverableWidget{
+
+    private final Text tooltip;
 
     public bodyPanel(int x, int y, int multiplier, Identifier texture, bodyParts parts, String modelType) {
         super(
@@ -17,6 +20,8 @@ public class bodyPanel extends hoverableWidget{
                 getRegionalWidth(parts, modelType),
                 parts.getRegionHeight(),
                 64, 64);
+
+        tooltip = Text.literal(parts.name().replace("_", " "));
     }
 
     private static int getX(int x, bodyParts parts, String modelType) {
@@ -30,13 +35,17 @@ public class bodyPanel extends hoverableWidget{
 
         if (!parts.name().contains("ARM")) return parts.getRegionWidth();
 
-        QsAdvancedBodyParameters.LOGGER.info(String.valueOf(modelType.equals("slim") ? 3 : 4));
         return modelType.equals("slim") ? 3 : 4;
     }
 
     @Override
     protected void renderHovered(DrawContext context, int mouseX, int mouseY, float delta) {
-        // Keep the parent's brightness overlay
-        super.renderHovered(context, mouseX, mouseY, delta);
+
+        if (tooltip == null) return;
+
+        context.drawTooltip(
+                MinecraftClient.getInstance().textRenderer,
+                tooltip,
+                mouseX, mouseY);
     }
 }
