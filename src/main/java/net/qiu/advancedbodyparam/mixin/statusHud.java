@@ -8,7 +8,7 @@ import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.qiu.advancedbodyparam.gui.statusPanel.bodyPanel;
-import net.qiu.advancedbodyparam.util.bodyParts;
+import net.qiu.advancedbodyparam.util.BodyParts;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -126,7 +126,7 @@ public class statusHud extends Screen {
                 x - PANEL_WIDTH + 19, y + 10,
                 2,
                 skin,
-                bodyParts.HEAD,
+                BodyParts.HEAD,
                 modelType
         );
 
@@ -134,7 +134,7 @@ public class statusHud extends Screen {
                 x - PANEL_WIDTH + 19, y + 27,
                 2,
                 skin,
-                bodyParts.TORSO,
+                BodyParts.TORSO,
                 modelType
         );
 
@@ -142,7 +142,7 @@ public class statusHud extends Screen {
                 x - PANEL_WIDTH + 36, y + 27,
                 2,
                 skin,
-                bodyParts.LEFT_ARM,
+                BodyParts.LEFT_ARM,
                 modelType
         );
 
@@ -150,7 +150,7 @@ public class statusHud extends Screen {
                 x - PANEL_WIDTH + 10, y + 27,
                 2,
                 skin,
-                bodyParts.RIGHT_ARM,
+                BodyParts.RIGHT_ARM,
                 modelType
         );
 
@@ -158,7 +158,7 @@ public class statusHud extends Screen {
                 x - PANEL_WIDTH + 28, y + 52,
                 2,
                 skin,
-                bodyParts.LEFT_LEG,
+                BodyParts.LEFT_LEG,
                 modelType
         );
 
@@ -166,7 +166,7 @@ public class statusHud extends Screen {
                 x - PANEL_WIDTH + 18, y + 52,
                 2,
                 skin,
-                bodyParts.RIGHT_LEG,
+                BodyParts.RIGHT_LEG,
                 modelType
         );
 

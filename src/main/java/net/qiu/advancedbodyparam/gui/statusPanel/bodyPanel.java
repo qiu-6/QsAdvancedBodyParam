@@ -4,13 +4,13 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.qiu.advancedbodyparam.util.bodyParts;
+import net.qiu.advancedbodyparam.util.BodyParts;
 
 public class bodyPanel extends hoverableWidget{
 
     private final Text tooltip;
 
-    public bodyPanel(int x, int y, int multiplier, Identifier texture, bodyParts parts, String modelType) {
+    public bodyPanel(int x, int y, int multiplier, Identifier texture, BodyParts parts, String modelType) {
         super(
                 getX(x, parts, modelType), y,
                 getRegionalWidth(parts, modelType) * multiplier,
@@ -24,14 +24,14 @@ public class bodyPanel extends hoverableWidget{
         tooltip = Text.literal(parts.name().replace("_", " "));
     }
 
-    private static int getX(int x, bodyParts parts, String modelType) {
+    private static int getX(int x, BodyParts parts, String modelType) {
 
-        if (!parts.equals(bodyParts.RIGHT_ARM)) return x;
+        if (!parts.equals(BodyParts.RIGHT_ARM)) return x;
 
         return x + (modelType.equals("slim") ? 2 : 0);
     }
 
-    private static int getRegionalWidth(bodyParts parts, String modelType) {
+    private static int getRegionalWidth(BodyParts parts, String modelType) {
 
         if (!parts.name().contains("ARM")) return parts.getRegionWidth();
 
