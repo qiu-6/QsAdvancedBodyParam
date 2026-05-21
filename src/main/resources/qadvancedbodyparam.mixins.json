@@ -1,16 +1,17 @@
 {
-	"required": true,
-	"package": "net.qiu.advancedbodyparam.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
-	},
-	"client": [
-		"StatusHud"
+  "required": true,
+  "package": "net.qiu.advancedbodyparam.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "DamageApplyEffect"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  },
+  "client": [
+    "StatusHud"
 	]
 }
