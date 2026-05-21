@@ -1,11 +1,14 @@
 package net.qiu.advancedbodyparam;
 
-import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.command.v2.ArgumentTypeRegistry;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.minecraft.command.argument.serialize.ConstantArgumentSerializer;
+import net.minecraft.util.Identifier;
 import net.qiu.advancedbodyparam.command.command;
-import net.qiu.advancedbodyparam.config.ModConfig;
+import net.qiu.advancedbodyparam.config.ConfigManager;
+import net.qiu.advancedbodyparam.util.argumentTypes.BodyPartsArgumentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +25,16 @@ public class QsAdvancedBodyParameters implements ModInitializer {
 
 		LOGGER.info("Registering " + MOD_NAME);
 
+		LOGGER.info("Registering custom command argument types for " + MOD_NAME);
+		ArgumentTypeRegistry.registerArgumentType(
+				new Identifier(MOD_ID, "body_part_argument"),
+				BodyPartsArgumentType.class,
+				ConstantArgumentSerializer.of(BodyPartsArgumentType::bodyPartsArgument)
+		);
+
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> command.register(dispatcher));
 
-		MidnightConfig.init(MOD_ID, ModConfig.class);
+		LOGGER.info("Loading config for " + MOD_NAME);
+		ConfigManager.loadConfig();
 	}
 }
