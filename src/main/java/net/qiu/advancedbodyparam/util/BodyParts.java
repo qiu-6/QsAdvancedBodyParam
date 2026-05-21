@@ -1,5 +1,7 @@
 package net.qiu.advancedbodyparam.util;
 
+import net.minecraft.util.StringIdentifiable;
+
 public enum BodyParts {
 
     HEAD(8, 8),
