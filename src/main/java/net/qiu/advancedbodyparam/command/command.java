@@ -4,12 +4,17 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.command.argument.EnumArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.qiu.advancedbodyparam.QsAdvancedBodyParameters;
 import net.qiu.advancedbodyparam.components.entity.EntityComponentReg;
+import net.qiu.advancedbodyparam.util.BodyParts;
+import net.qiu.advancedbodyparam.util.argumentTypes.BodyPartsArgumentType;
+import net.qiu.advancedbodyparam.util.status.StatusHelper;
 
 import java.util.*;
 
@@ -19,7 +24,7 @@ public class command {
 
         QsAdvancedBodyParameters.LOGGER.info("Registering commands for " + QsAdvancedBodyParameters.MOD_NAME);
 
-        dispatcher.register(CommandManager.literal("QsAdvancedBodyParam")
+        dispatcher.register(CommandManager.literal("qsadvancedbodyparam")
 
                 .then(CommandManager.literal("bloodLevel")
 
@@ -29,9 +34,11 @@ public class command {
                                         getBlood(ctx, null)
                                 )
 
-                                .then(CommandManager.argument("player", EntityArgumentType.player())
+                                .then(CommandManager.argument("target", EntityArgumentType.player())
                                         .executes(ctx ->
-                                                getBlood(ctx, EntityArgumentType.getPlayer(ctx, "player"))
+                                                getBlood(
+                                                        ctx,
+                                                        EntityArgumentType.getPlayer(ctx, "target"))
                                         )
                                 )
                         )
@@ -44,10 +51,40 @@ public class command {
                                         )
                                 )
 
-                                .then(CommandManager.argument("players", EntityArgumentType.players())
+                                .then(CommandManager.argument("targets", EntityArgumentType.players())
                                         .then(CommandManager.argument("blood", IntegerArgumentType.integer(0, 60))
                                                 .executes(ctx ->
-                                                        setBlood(ctx, EntityArgumentType.getPlayers(ctx, "players"), IntegerArgumentType.getInteger(ctx, "blood"))
+                                                        setBlood(
+                                                                ctx,
+                                                                EntityArgumentType.getPlayers(ctx, "targets"),
+                                                                IntegerArgumentType.getInteger(ctx, "blood")
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+
+                .then(CommandManager.literal("status")
+
+                        .requires(source -> source.hasPermissionLevel(1))
+                        .then(CommandManager.literal("get")
+                                .then(CommandManager.argument("bodypart", BodyPartsArgumentType.bodyPartsArgument())
+                                        .executes(ctx ->
+                                                getStatus(
+                                                        ctx,
+                                                        null,
+                                                        BodyPartsArgumentType.getBodyPart(ctx, "bodypart")
+                                                )
+                                        )
+
+                                        .then(CommandManager.argument("target", EntityArgumentType.player())
+                                                .executes(ctx ->
+                                                        getStatus(
+                                                                ctx,
+                                                                EntityArgumentType.getPlayer(ctx, "target"),
+                                                                BodyPartsArgumentType.getBodyPart(ctx, "bodypart")
+                                                        )
                                                 )
                                         )
                                 )
@@ -104,25 +141,25 @@ public class command {
 
                 return 1;
             }).orElseGet(() -> {
+
                 source.sendError(Text.translatable("commands.qadvancedbodyparam.componenterror",
                         EntityComponentReg.BLOOD_COMPONENT.getId().getPath(),
                         serverPlayer.getName().getString()));
-
                 QsAdvancedBodyParameters.LOGGER.error("Could not find blood component on {}", serverPlayer.getName().getString());
+
                 return 0;
             });
         } else {
 
             Collection<String> success = new HashSet<>();
-            Collection<String> fail = new HashSet<>();
+            Map<String, ServerPlayerEntity> fail = new HashMap<>();
 
             for (ServerPlayerEntity player : players) {
 
                 EntityComponentReg.BLOOD_COMPONENT.maybeGet(player).ifPresentOrElse(bloodComponent -> {
-
                     bloodComponent.setBlood(newBlood);
                     success.add(player.getName().getString());
-                }, () -> fail.add(player.getName().getString()));
+                }, () -> fail.put(player.getName().getString(), player));
             }
 
             if (!success.isEmpty()) {
@@ -142,12 +179,53 @@ public class command {
 
                 source.sendError(Text.translatable("commands.qadvancedbodyparam.componenterror",
                         EntityComponentReg.BLOOD_COMPONENT.getId().getPath(),
-                        String.join(", ", fail)));
+                        String.join(", ", fail.keySet())));
 
-                QsAdvancedBodyParameters.LOGGER.error("Could not find blood component on {}", String.join(", ", fail));
+                QsAdvancedBodyParameters.LOGGER.error("Could not find blood component on {}", String.join(", ", fail.keySet()));
+
+                fail.forEach((name, player) -> player.networkHandler.disconnect(Text.translatable("qadvancedbodyparam.disconnect.no_component", EntityComponentReg.STATUS_COMPONENT.getId().getPath())));
             }
 
-            return success.isEmpty() ? 0 : 1;
+            return success.size();
         }
+    }
+
+    private static int getStatus(CommandContext<ServerCommandSource> ctx, ServerPlayerEntity player, BodyParts part) {
+
+        ServerCommandSource source = ctx.getSource();
+
+        ServerPlayerEntity serverPlayer = (player != null) ? player : source.getPlayer();
+
+        if (serverPlayer == null) {
+            source.sendError(Text.translatable("commands.qadvancedbodyparam.sourceerror"));
+            return 0;
+        }
+
+        return EntityComponentReg.STATUS_COMPONENT.maybeGet(serverPlayer).map(statusComponent -> {
+
+            HashSet<StatusHelper> helperSet = statusComponent.getStatusSet(part);
+
+            if (helperSet.isEmpty()) {
+                source.sendFeedback(() -> Text.translatable("commands.qadvancedbodyparam.getstatusempty", part.name().toLowerCase().replace("_", " "), serverPlayer.getName().getString()), false);
+                return 1;
+            }
+
+            source.sendFeedback(() -> Text.translatable("commands.qadvancedbodyparam.getstatus", part.name().toLowerCase().replace("_", " "), serverPlayer.getName().getString()), false);
+
+            for (StatusHelper helper : helperSet) {
+
+                String statusName = helper.getStatus().name().toLowerCase().replace("_", " ");
+
+                source.sendFeedback(() -> Text.translatable("commands.qadvancedbodyparam.getstatuslist", statusName, helper.getDuration(), helper.getIntensity()), false);
+            }
+
+            return 1;
+        }).orElseGet(() -> {
+
+            source.sendError(Text.translatable("commands.qadvancedbodyparam.componenterror", EntityComponentReg.STATUS_COMPONENT.getId().getPath(), serverPlayer.getName().getString()));
+            QsAdvancedBodyParameters.LOGGER.error("Could not find status component on {}", serverPlayer.getName().getString());
+            serverPlayer.networkHandler.disconnect(Text.translatable("qadvancedbodyparam.disconnect.no_component", EntityComponentReg.STATUS_COMPONENT.getId().getPath()));
+            return 0;
+        });
     }
 }
